@@ -33,9 +33,7 @@ I referred to the provided Figma design assets throughout the implementation pro
 ## Demonstration
 
 I have provided a screen recording that demonstrates the functional feature in action, showcasing the process of adding transactions. Please refer to the attached video for a comprehensive overview of the implemented functionality.
-![2023-08-12 16-41-42](https://github.com/cultofthedamned/Budgetwise-Intern-Challenge/assets/94456554/69be61bd-1375-492a-8fab-c65cb182d20a)
-
-
+![2023-08-12 17-24-35](https://github.com/cultofthedamned/Budgetwise-Intern-Challenge/assets/94456554/a2665c40-e9dd-476f-8885-d260e64f9583)
 
 ## Codebase Access
 
