@@ -1,17 +1,11 @@
-package com.example.budgetwiseinternchallenge
+package com.example.budgetwiseinternchallenge.ui.components
 
-import androidx.compose.animation.core.FastOutSlowInEasing
-import androidx.compose.animation.core.animateFloatAsState
-import androidx.compose.animation.core.tween
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
@@ -41,26 +35,23 @@ import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.budgetwiseinternchallenge.ui.theme.Gray
-import com.example.budgetwiseinternchallenge.ui.theme.Purple
-import com.example.budgetwiseinternchallenge.ui.theme.White
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
-import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
+import com.example.budgetwiseinternchallenge.R
+import com.example.budgetwiseinternchallenge.ui.animations.calculatePercentage
+import com.example.budgetwiseinternchallenge.ui.animations.progressBarAnimation
 import com.example.budgetwiseinternchallenge.ui.theme.DarkBlue
 import com.example.budgetwiseinternchallenge.ui.theme.Green
 import com.example.budgetwiseinternchallenge.ui.theme.LightBlue
@@ -71,36 +62,7 @@ import com.example.budgetwiseinternchallenge.ui.theme.ProgressBarPurple
 import com.example.budgetwiseinternchallenge.ui.theme.TextBlack
 import com.example.budgetwiseinternchallenge.ui.theme.TextGray
 import com.example.budgetwiseinternchallenge.ui.theme.Turquoise
-
-@Preview
-@Composable
-fun HomeScreen(modifier: Modifier = Modifier) {
-    Column(
-        modifier = modifier
-            .background(Gray)
-            .fillMaxSize()
-    ) {
-        TopBar()
-        Budget()
-    }
-}
-
-@Composable
-fun TopBar(modifier: Modifier = Modifier) {
-    val topHeight = 100.dp
-    val borderRadius = 25.dp
-    Box(
-        modifier = modifier
-            .clip(
-                RoundedCornerShape(
-                    bottomStart = borderRadius, bottomEnd = borderRadius
-                )
-            )
-            .height(topHeight)
-            .fillMaxWidth()
-            .background(Purple)
-    )
-}
+import com.example.budgetwiseinternchallenge.ui.theme.White
 
 @Composable
 fun Budget(modifier: Modifier = Modifier) {
@@ -253,7 +215,7 @@ fun BudgetContent(modifier: Modifier = Modifier) {
             containerColor = LightPurple,
             shape = MaterialTheme.shapes.large.copy(CornerSize(percent = 50)),
             modifier = modifier
-                .padding(end = 25.dp, top = 40.dp)
+                .padding(end = 25.dp, top = 10.dp)
         ) {
             Icon(
                 imageVector = Icons.Default.Add,
@@ -595,112 +557,4 @@ fun BudgetCategories(
             spentOnEducationProgress
         )
     }
-}
-
-@Composable
-fun Category(
-    modifier: Modifier = Modifier,
-    image: Painter,
-    categoryName: String,
-    spentOnCategory: String,
-    leftForCategory: String,
-    color: Color,
-    animationPlayed: Boolean,
-    progress: Float
-) {
-    Row(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(start = 14.dp, end = 14.dp, bottom = 5.dp),
-        horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Box(
-                modifier = modifier
-                    .clip(RoundedCornerShape(25.dp))
-                    .background(color)
-                    .padding()
-            ) {
-                Image(
-                    painter = image,
-                    contentDescription = "null",
-                    modifier = modifier
-                        .padding(10.dp)
-                )
-            }
-            Column(
-                modifier = modifier
-                    .padding(start = 10.dp)
-            ) {
-                Text(
-                    text = categoryName,
-                    modifier = modifier
-                        .padding(bottom = 5.dp),
-                    color = TextBlack,
-                    fontSize = 18.sp,
-                    fontWeight = FontWeight.Medium
-                )
-                Row {
-                    Text(
-                        text = "spent",
-                        color = TextGray,
-                        fontWeight = FontWeight.Medium
-                    )
-                    Text(
-                        text = " $${spentOnCategory}",
-                        color = Green,
-                        fontWeight = FontWeight.Medium
-                    )
-                    Text(
-                        text = " of $100",
-                        color = TextGray,
-                        fontWeight = FontWeight.Medium
-                    )
-                }
-            }
-        }
-        Column(
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Text(
-                text = "$${leftForCategory}",
-                color = Green,
-                fontSize = 18.sp,
-                fontWeight = FontWeight.Medium
-            )
-            Text(
-                text = "left",
-                fontSize = 14.sp,
-                fontWeight = FontWeight.Light
-            )
-        }
-    }
-    LinearProgressIndicator(
-        modifier = modifier
-            .padding(bottom = 25.dp)
-            .height(5.dp)
-            .fillMaxWidth(),
-        color = LightBlue,
-        progress = progressBarAnimation(animationPlayed, progress),
-    )
-}
-
-
-fun calculatePercentage(spent: Int, budget: Int): Float {
-    return ((spent.toFloat() * 100) / budget.toFloat()) / 100
-}
-
-@Composable
-fun progressBarAnimation(animationPlayed: Boolean, progress: Float): Float {
-    val progressEducation by animateFloatAsState(
-
-        targetValue = if (animationPlayed) progress else 0f,
-        animationSpec = tween(durationMillis = 1000, easing = FastOutSlowInEasing),
-        label = ""
-    )
-    return progressEducation
 }

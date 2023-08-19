@@ -2,6 +2,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <style name="Custom" parent="android:Theme.Material.Light.NoActionBar">
-
     </style>
+
 </resources>

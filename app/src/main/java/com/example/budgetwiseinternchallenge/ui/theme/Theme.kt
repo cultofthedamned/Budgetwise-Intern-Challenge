@@ -13,18 +13,16 @@ import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
+import androidx.core.content.ContextCompat
 import androidx.core.view.WindowCompat
+import com.example.budgetwiseinternchallenge.R
 
 private val DarkColorScheme = darkColorScheme(
-        /*primary = Purple80,
-        secondary = PurpleGrey80,
-        tertiary = Pink80*/
+        primary = Purple
 )
 
 private val LightColorScheme = lightColorScheme(
-        /*primary = Purple40,
-        secondary = PurpleGrey40,
-        tertiary = Pink40*/
+        primary = Purple
 
         /* Other default colors to override
     background = Color(0xFFFFFBFE),
@@ -57,7 +55,7 @@ fun BudgetwiseInternChallengeTheme(
     if (!view.isInEditMode) {
         SideEffect {
             val window = (view.context as Activity).window
-            window.statusBarColor = colorScheme.primary.toArgb()
+            window.statusBarColor = ContextCompat.getColor(view.context, R.color.statusBarColor)
             WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = darkTheme
         }
     }
